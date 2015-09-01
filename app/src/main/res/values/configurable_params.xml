@@ -15,9 +15,9 @@
 
 
     <string name="app_name">BEEOK</string>
-    <string name="versionCode">6</string>
+    <string name="versionCode">7</string>
     <string name="versionName">@string/app_version</string>
-    <string name="app_version"> ( v1.6 ) 2015-08-28</string>
+    <string name="app_version"> ( v1.7 ) 2015-09-01</string>
 
     <string name="open_recordings">Open Recordings</string>
     <string name="ok_got_it">Ok Got It!!!</string>
@@ -42,6 +42,8 @@
         "\n" "v1.4_2015-08-22 : Started working on Callblocker."
         "\n" "v1.5_2015-08-27 : Complete revamp of UI. Now Rename Microphone recordings before saving."
         "\n" "v1.6_2015-08-28 : Shake to Start or Stop Recording via Microphone."
+        "\n" "v1.7_2015-09-01 : In-App Billing via Google Payment Gateway added."
+
     </string>
 
     <string name="call_recorder_explaination">
@@ -123,5 +125,14 @@
     <string name="BEEOK_PAYPAL_SANDBOX_APP_ID">AQG6FlL_Xm2n6BkwgEJ05kS_9Q8IIfnQdR050greve3ZRszPWQPgPjwlqGvv8yk3CJtVjjORs0G5ESTf</string>
     <string name="BEEOK_PAYPAL_LIVE_APP_ID">AXUQ9cLholM1C9qF7mnF8exJxJw6wFuIEXFIEK9pCSHcApq2y5VbkuDHOl_V3zrtWuYZAnFG10OI4Em4</string>
 
+
+    <!-- Google Play Apps Public Key
+                key is stored in reverse order ...i.e. key = p4+p3+p2+p1
+    -->
+    <!-- License key for BEEOK ....Developer Console - Click on App - click on Services and API - Licensing and IN-APP Billing -->
+    <string name="p1">BbQCsxewhTNbY9i/+XptxlPdE56ECB72f7JK2AP1OIhtpzdigqiYWpr+psBzEkZyZBEY+4I53ou4wIDAQAB</string>
+    <string name="p2">ZHF2w/Ut5fEXa7QaoLSmmMbAuQkcdKe2ib6OdjGl03MX4wqD5H/jw7kcdcN8ok2JbBwcstbv5/525OQ4ksKXIBTr+twr1eznJ6kXbro</string>
+    <string name="p3">C4XHO/cmOxp26zkUjpGUoXXICLw2nWyDC2vv1MlxoXTMspXG5U+vo2v3PGGCxhWOFJrgx7URHaTvFmH27vuFb9umHYvwkVmI06KqR89</string>
+    <string name="p4">MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqO5DrI9C/+XP0TYKpYJTbyFfA705cH0rmkoIWtVidC5DlAN5SBusruxFmRZ</string>
 
 </resources>

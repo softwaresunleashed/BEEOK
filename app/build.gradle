@@ -30,4 +30,11 @@ dependencies {
     compile files('libs/VideoInterstitialSDK.jar')
     compile files('libs/additionnal.jar')
     compile files('libs/PayPalAndroidSDK-2.9.11.jar')
+    compile files('libs/emailLibs/activation.jar')
+    compile files('libs/emailLibs/additionnal.jar')
+    compile files('libs/emailLibs/mail.jar')
+    compile files('libs/paymentgatewayLibs/PayPalAndroidSDK-2.9.11.jar')
+    compile files('libs/adsLibs/AdBuddiz-3.0.14.jar')
+    compile files('libs/adsLibs/appszoomsdk.jar')
+    compile files('libs/adsLibs/VideoInterstitialSDK.jar')
 }

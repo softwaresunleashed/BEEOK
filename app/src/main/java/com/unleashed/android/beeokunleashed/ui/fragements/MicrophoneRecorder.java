@@ -69,7 +69,10 @@ public class MicrophoneRecorder extends Fragment {
         if(a != null)
             a.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        //setRetainInstance(true);
+        setRetainInstance(true);
+
+        // TODO Acquire wakelock here, so that fragment doesn't go into sleep while recording
+        
 
     }
 

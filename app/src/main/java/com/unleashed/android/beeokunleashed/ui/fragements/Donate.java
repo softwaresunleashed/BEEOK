@@ -1,32 +1,17 @@
 package com.unleashed.android.beeokunleashed.ui.fragements;
 
 
-import android.app.Activity;
-import android.app.FragmentManager;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
-import com.paypal.android.sdk.payments.PayPalConfiguration;
-import com.paypal.android.sdk.payments.PayPalPayment;
-import com.paypal.android.sdk.payments.PayPalService;
-import com.paypal.android.sdk.payments.PaymentActivity;
-import com.paypal.android.sdk.payments.PaymentConfirmation;
 import com.unleashed.android.beeokunleashed.R;
 import com.unleashed.android.beeokunleashed.adhosting.googleadmob.GoogleAdMob;
-import com.unleashed.android.beeokunleashed.constants.Constants;
-import com.unleashed.android.beeokunleashed.paymentgateways.PayPal;
-
-import org.json.JSONException;
-
-import java.math.BigDecimal;
+import com.unleashed.android.beeokunleashed.paymentgateways.paypal.PayPal;
 
 /**
  * A simple {@link Fragment} subclass.

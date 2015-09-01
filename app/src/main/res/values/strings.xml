@@ -83,6 +83,10 @@
         <item>@drawable/ic_about_app</item>
         <item>@drawable/ic_exit_app</item>
     </array>
+    <string name="title_activity_google_payment_gateway">GooglePaymentGateway</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
 
 
 </resources>

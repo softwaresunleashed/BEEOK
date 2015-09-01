@@ -1,4 +1,4 @@
-package com.unleashed.android.beeokunleashed.paymentgateways;
+package com.unleashed.android.beeokunleashed.paymentgateways.paypal;
 
 import android.app.Activity;
 import android.app.Fragment;

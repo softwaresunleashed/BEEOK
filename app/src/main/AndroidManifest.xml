@@ -1,20 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<manifest
+<manifest xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:ads="http://schemas.android.com/apk/res-auto"
     package="com.unleashed.android.beeokunleashed"
-    android:versionCode="6"
-    android:versionName="@string/app_version">
+    android:versionCode="7"
+    android:versionName="@string/app_version" >
 
-    <uses-sdk
-        android:minSdkVersion="11" />
+    <uses-sdk android:minSdkVersion="11" />
 
     <!-- Needed to read phone state (Ringing , Calling, -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
 
-    <!-- Needed to Send Email to contacts in phone book.  -->
+    <!-- Needed to Send Email to contacts in phone book. -->
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <!-- Invoking Call Record Service at Bootup -->
@@ -24,19 +21,21 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-
-
+    <!-- Permission for Google PlayStore Payment Gateway -->
+    <uses-permission android:name="com.android.vending.BILLING" />
 
     <!-- Needed to Start / Stop Recording Audio when shaking the phone. -->
-    <uses-feature android:name="android.hardware.sensor.accelerometer" android:required="true" />
+    <uses-feature
+        android:name="android.hardware.sensor.accelerometer"
+        android:required="true" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".ui.MainActivity"
             android:label="@string/app_name" >
@@ -92,11 +91,10 @@
         <!-- AdNext Ad - www.appnext.com -->
         <activity
             android:name="com.appnext.appnextinterstitial.InterstitialActivity"
-            android:theme="@android:style/Theme.Translucent"
-            android:hardwareAccelerated="true" />
-        <service
-            android:name="com.appnext.appnextinterstitial.DownloadService"/>
+            android:hardwareAccelerated="true"
+            android:theme="@android:style/Theme.Translucent" />
 
+        <service android:name="com.appnext.appnextinterstitial.DownloadService" />
 
         <!-- AppsZoom Ad: Detect app installs. Necessary to control the installs your app generates (avoid using it if you are only tracking) -->
         <receiver android:name="com.appszoom.appszoomsdk.AppsZoomPackageAddedReceiver" >
@@ -115,21 +113,23 @@
             </intent-filter>
         </receiver>
 
-
-
         <!-- PayPal Payment gateway related Activities and services -->
-        <service android:name="com.paypal.android.sdk.payments.PayPalService"
+        <service
+            android:name="com.paypal.android.sdk.payments.PayPalService"
             android:exported="false" />
 
         <activity android:name="com.paypal.android.sdk.payments.PaymentActivity" />
         <activity android:name="com.paypal.android.sdk.payments.LoginActivity" />
         <activity android:name="com.paypal.android.sdk.payments.PaymentMethodActivity" />
         <activity android:name="com.paypal.android.sdk.payments.PaymentConfirmActivity" />
-        <activity android:name="io.card.payment.CardIOActivity"
+        <activity
+            android:name="io.card.payment.CardIOActivity"
             android:configChanges="keyboardHidden|orientation" />
         <activity android:name="io.card.payment.DataEntryActivity" />
-
-
+        <activity
+            android:name=".paymentgateways.google.util.GooglePaymentGateway"
+            android:label="@string/title_activity_google_payment_gateway" >
+        </activity>
     </application>
 
 </manifest>

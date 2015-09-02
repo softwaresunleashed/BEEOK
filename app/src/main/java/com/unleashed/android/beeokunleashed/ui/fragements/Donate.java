@@ -2,6 +2,7 @@ package com.unleashed.android.beeokunleashed.ui.fragements;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.ImageButton;
 
 import com.unleashed.android.beeokunleashed.R;
 import com.unleashed.android.beeokunleashed.adhosting.googleadmob.GoogleAdMob;
+import com.unleashed.android.beeokunleashed.paymentgateways.google.GooglePaymentGateway;
 import com.unleashed.android.beeokunleashed.paymentgateways.paypal.PayPal;
 
 /**
@@ -71,9 +73,17 @@ public class Donate extends Fragment {
         // If Google Payment Gateway is enabled
         if (getResources().getInteger(R.integer.PG_GOOGLE) == 1){
 
-
+            imgbtn_donate = (ImageButton)rootView.findViewById(R.id.imgBtn_makedonation);
+            imgbtn_donate.setVisibility(View.VISIBLE);
+            imgbtn_donate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                        //Show Google Payment Activity
+                        Intent googlePaymentActivityIntent = new Intent(mContext, GooglePaymentGateway.class);
+                        startActivity(googlePaymentActivityIntent);
+                }
+            });
         }
-
 
 
     }

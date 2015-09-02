@@ -89,5 +89,20 @@
     <string name="action_settings">Settings</string>
 
 
+
+    <!-- Google In-App products -->
+    <!-- Add Google product-ids here ...e.g. donate_coffee, half_cup_coffee -->
+    <string name="SKU_DONATE_COFFEE">donate_coffee</string>
+    <string name="SKU_DONATE_HALFCUP_COFFEE">half_cup_coffee</string>
+    <string name="SKU_DONATE_TEA">tea</string>
+
+    <!-- This is the mapping of PRODUCT ID in code and that on google server -->
+    <string-array name="in_app_product_codes">
+        <item name="SKU_DONATE_COFFEE"> @string/SKU_DONATE_COFFEE </item>
+        <item name="SKU_DONATE_HALFCUP_COFFEE"> @string/SKU_DONATE_HALFCUP_COFFEE </item>
+        <item name="SKU_DONATE_TEA"> @string/SKU_DONATE_TEA </item>
+    </string-array>
+    <!-- End -->
+
 </resources>
 

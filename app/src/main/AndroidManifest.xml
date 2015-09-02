@@ -2,7 +2,7 @@
 <manifest xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.unleashed.android.beeokunleashed"
-    android:versionCode="7"
+    android:versionCode="8"
     android:versionName="@string/app_version" >
 
     <uses-sdk android:minSdkVersion="11" />
@@ -44,6 +44,12 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".paymentgateways.google.GooglePaymentGateway"
+            android:label="@string/donate"
+            android:theme="@style/AppTheme">
         </activity>
 
         <receiver

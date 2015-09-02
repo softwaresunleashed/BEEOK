@@ -4,9 +4,41 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.unleashed.android.beeokunleashed.paymentgateways.google.util.GooglePaymentGateway">
+    tools:context="com.unleashed.android.beeokunleashed.paymentgateways.google.util.GooglePaymentGateway"
+    android:background="@android:color/white">
 
-    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView9"
+        android:src="@drawable/gift_donation" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Select One :"
+        android:layout_below="@id/imageView9"
+        android:id="@+id/textView"
+        android:layout_margin="5dp"
+        android:textColor="@android:color/black" />
+
+    <RadioGroup
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView"
+        android:id="@+id/radgrpcontainer_products"
+        android:layout_margin="5dp">
+
+    </RadioGroup>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/radgrpcontainer_products"
+        android:id="@+id/imgBtn_Back"
+        android:src="@drawable/back"
+        android:background="@android:color/white"
+        android:layout_centerInParent="true" />
 
 </RelativeLayout>

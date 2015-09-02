@@ -15,9 +15,10 @@
 
 
     <string name="app_name">BEEOK</string>
-    <string name="versionCode">7</string>
+    <string name="versionCode">8</string>
     <string name="versionName">@string/app_version</string>
-    <string name="app_version"> ( v1.7 ) 2015-09-01</string>
+    <string name="app_version"> ( v1.8 ) 2015-09-02</string>
+    <string name="donate">Donate A Coffee</string>
 
     <string name="open_recordings">Open Recordings</string>
     <string name="ok_got_it">Ok Got It!!!</string>
@@ -43,7 +44,7 @@
         "\n" "v1.5_2015-08-27 : Complete revamp of UI. Now Rename Microphone recordings before saving."
         "\n" "v1.6_2015-08-28 : Shake to Start or Stop Recording via Microphone."
         "\n" "v1.7_2015-09-01 : In-App Billing via Google Payment Gateway added."
-
+        "\n" "v1.8_2015-09-02 : Fixed a minor bug."
     </string>
 
     <string name="call_recorder_explaination">

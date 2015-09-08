@@ -5,6 +5,7 @@ import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,6 +40,8 @@ public class ExitApp extends Fragment {
 
         show_dialog_to_exit_app(rootView);
 
+
+
         return rootView;
     }
 
@@ -72,6 +75,11 @@ public class ExitApp extends Fragment {
                     FragmentManager fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction()
                             .replace(R.id.frame_container, fragment).commit();
+
+
+                    // Set title bar as "Home"
+                    ((ActionBarActivity)getActivity()).getSupportActionBar().setTitle(R.string.action_home_page);
+
                 }
             }
         });

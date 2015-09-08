@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.app.Fragment;
@@ -40,6 +41,7 @@ import com.unleashed.android.beeokunleashed.ui.fragements.ExitApp;
 import com.unleashed.android.beeokunleashed.ui.fragements.HomePage;
 import com.unleashed.android.beeokunleashed.ui.fragements.MicrophoneRecorder;
 import com.unleashed.android.beeokunleashed.ui.fragements.RateAppOnGooglePlayStore;
+import com.unleashed.android.beeokunleashed.ui.fragements.SMSBlocker;
 import com.unleashed.android.beeokunleashed.ui.fragements.SendPromotionalEmail;
 import com.unleashed.android.beeokunleashed.ui.fragements.TellFriendViaPersonalEmail;
 import com.unleashed.android.beeokunleashed.ui.slidingdrawer.adapter.NavDrawerListAdapter;
@@ -130,18 +132,20 @@ public class MainActivity extends ActionBarActivity {
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[2], navMenuIcons.getResourceId(2, -1)));
         // Call Blocker Functionality
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], navMenuIcons.getResourceId(3, -1)));
-        // Rate us on Google Play Store
+        // SMS Blocker Functionality
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[4], navMenuIcons.getResourceId(4, -1)));
-        // Send Promotional Email
+        // Rate us on Google Play Store
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[5], navMenuIcons.getResourceId(5, -1)));
-        // Tell a Friend
+        // Send Promotional Email
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[6], navMenuIcons.getResourceId(6, -1)));
-        // About App
+        // Tell a Friend
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[7], navMenuIcons.getResourceId(7, -1)));
-        // Donate
+        // About App
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[8], navMenuIcons.getResourceId(8, -1)));
-        // Exit App
+        // Donate
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[9], navMenuIcons.getResourceId(9, -1)));
+        // Exit App
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[10], navMenuIcons.getResourceId(10, -1)));
         //--> this is for adding a round text view , can be used for showing number of notifications pending   -- , true, "22"
         //navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], navMenuIcons.getResourceId(3, -1), true, "22"));
 
@@ -162,27 +166,39 @@ public class MainActivity extends ActionBarActivity {
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //getSupportActionBar().setHomeButtonEnabled(true);
 
-        //getSupportActionBar().setDisplayShowHomeEnabled(false);
-        getSupportActionBar().setIcon(R.drawable.call_recorder_app_icon);
-        getSupportActionBar().setTitle(R.string.app_name);
+
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setHomeButtonEnabled(true);
+        //getSupportActionBar().setIcon(R.drawable.call_recorder);
+        //getSupportActionBar().setTitle(R.string.app_name);
+
+
+
+
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME| ActionBar.DISPLAY_SHOW_TITLE  | ActionBar.DISPLAY_USE_LOGO); // Customize if you need to
+
+       // getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_SHOW_TITLE | ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_USE_LOGO); // Customize if you need to
+
+        // Set the Title & Icon of action bar when navigating between pages.
+        getSupportActionBar().setTitle(navMenuTitles[0]);
+        //getSupportActionBar().setIcon(R.drawable.ic_home);
 
 
         // Set ActionBar Color
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFE96264")));
 
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
-                R.drawable.call_recorder_app_icon, //nav menu toggle icon
+                R.drawable.call_recorder, //nav menu toggle icon
                 R.string.drawer_open, // nav drawer open - description for accessibility
                 R.string.drawer_close // nav drawer close - description for accessibility
         ){
             public void onDrawerClosed(View view) {
-                getSupportActionBar().setTitle(mTitle);
                 // calling onPrepareOptionsMenu() to show action bar icons
                 invalidateOptionsMenu();
             }
 
             public void onDrawerOpened(View drawerView) {
-                getSupportActionBar().setTitle(mDrawerTitle);
+
                 // calling onPrepareOptionsMenu() to hide action bar icons
                 invalidateOptionsMenu();
             }
@@ -234,24 +250,26 @@ public class MainActivity extends ActionBarActivity {
                 fragment = new CallBlocker();
                 break;
             case 4:
-                fragment = new RateAppOnGooglePlayStore();
+                fragment = new SMSBlocker();
                 break;
             case 5:
-                fragment = new SendPromotionalEmail();
+                fragment = new RateAppOnGooglePlayStore();
                 break;
             case 6:
-                fragment = new TellFriendViaPersonalEmail();
+                fragment = new SendPromotionalEmail();
                 break;
             case 7:
-                fragment = new AboutApp();
+                fragment = new TellFriendViaPersonalEmail();
                 break;
             case 8:
-                fragment = new Donate();
+                fragment = new AboutApp();
                 break;
             case 9:
+                fragment = new Donate();
+                break;
+            case 10:
                 fragment = new ExitApp();
                 break;
-
             default:
                 break;
         }
@@ -264,12 +282,17 @@ public class MainActivity extends ActionBarActivity {
             // update selected item and title, then close the drawer
             mDrawerList.setItemChecked(position, true);
             mDrawerList.setSelection(position);
-            setTitle(navMenuTitles[position]);
+
+
+            // Set the Title & Icon of action bar when navigating between pages.
+            getSupportActionBar().setTitle(navMenuTitles[position]);
+           // getSupportActionBar().setIcon(navMenuIcons.getResourceId(position, -1));
+
             mDrawerLayout.closeDrawer(mDrawerList);
 
         } else {
             // error in creating fragment
-            Log.e(Constants.APP_NAME_TAG, "Error in creating fragment");
+            Log.e(Constants.APP_NAME_TAG, "MainActivity.java:displayView() ... Error in creating fragment");
         }
     }
     @Override

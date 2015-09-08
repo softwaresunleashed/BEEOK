@@ -2,16 +2,12 @@ package com.unleashed.android.beeokunleashed.ui.fragements;
 
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.database.Cursor;
-import android.database.DataSetObserver;
 import android.os.Bundle;
-import android.app.Fragment;
-import android.support.v4.content.Loader;
-import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AlertDialog;
 import android.text.InputType;
 import android.util.Log;
@@ -24,43 +20,40 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.unleashed.android.beeokunleashed.R;
 import com.unleashed.android.beeokunleashed.adhosting.googleadmob.GoogleAdMob;
 import com.unleashed.android.beeokunleashed.constants.Constants;
 import com.unleashed.android.beeokunleashed.databases.BlockedCallsDB;
+import com.unleashed.android.beeokunleashed.databases.BlockedSMSsDB;
 import com.unleashed.android.beeokunleashed.utils.SharedPrefs;
-import com.unleashed.android.beeokunleashed.utils.Utils;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CallBlocker extends Fragment{
+public class SMSBlocker extends Fragment{
 
-    private BlockedCallsDB blockedCallsDB;      // Blocked Calls Database object
+    private BlockedSMSsDB blockedSMSsDB;      // Blocked Calls Database object
     private Context mContext;
 
 
-    private ArrayAdapter<String> BlockedCallsDBAdapter; /** Declaring an ArrayAdapter to set items to ListView */
-    private ArrayList<String> blockedCallsList;     /** Items entered by the user is stored in this ArrayList variable */
+    private ArrayAdapter<String> BlockedSMSsDBAdapter; /** Declaring an ArrayAdapter to set items to ListView */
+    private ArrayList<String> blockedSMSsList;     /** Items entered by the user is stored in this ArrayList variable */
 
-    public static boolean isCallBlockerEnabled;
+    public static boolean isSMSBlockerEnabled;
     // UI Elements
     private Button btn_addToBlackList;
     private EditText editText_newFileInput;
     private ListView lv_blocked_numbers;
-    private ToggleButton togbtn_callblocker;
+    private ToggleButton togbtn_smsblocker;
 
 
 
-    public CallBlocker() {
+    public SMSBlocker() {
         // Required empty public constructor
     }
 
@@ -78,14 +71,14 @@ public class CallBlocker extends Fragment{
 
     private void initializeDB(Context context) {
         // Create Database during
-        blockedCallsDB = new BlockedCallsDB(context);
+        blockedSMSsDB = new BlockedSMSsDB(context);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        final View rootView = inflater.inflate(R.layout.fragment_call_blocker, container, false);
+        final View rootView = inflater.inflate(R.layout.fragment_sms_blocker, container, false);
 
         mContext = rootView.getContext().getApplicationContext();
 
@@ -97,15 +90,15 @@ public class CallBlocker extends Fragment{
 
 
         // Toggle Button to Enable / Disable Call Blocking.
-        togbtn_callblocker = (ToggleButton)rootView.findViewById(R.id.togBtn_CallBlocker);
+        togbtn_smsblocker = (ToggleButton)rootView.findViewById(R.id.togBtn_SMSBlocker);
         // Set the state of the block calls toggle button as set in the shared preference file.
-        togbtn_callblocker.setChecked(SharedPrefs.ReadFromSharedPrefFile(mContext, Constants.PREFS_NAME, "isCallBlockerEnabled"));
-        togbtn_callblocker.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        togbtn_smsblocker.setChecked(SharedPrefs.ReadFromSharedPrefFile(mContext, Constants.PREFS_NAME, "isSMSBlockerEnabled"));
+        togbtn_smsblocker.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isEnabled) {
 
                 // Write current state to a shared pref file.
-                SharedPrefs.WriteToSharedPrefFile(mContext, Constants.PREFS_NAME, "isCallBlockerEnabled", isEnabled);
+                SharedPrefs.WriteToSharedPrefFile(mContext, Constants.PREFS_NAME, "isSMSBlockerEnabled", isEnabled);
             }
         });
 
@@ -121,8 +114,8 @@ public class CallBlocker extends Fragment{
 
         if (getResources().getInteger(R.integer.host_ads) == 1) {
             // Initialize the google ads via common api.
-            GoogleAdMob.init_google_ads(rootView, R.id.adView_call_blocker);
-            GoogleAdMob.init_google_ads(rootView, R.id.adView_call_blocker2);
+            GoogleAdMob.init_google_ads(rootView, R.id.adView_sms_blocker);
+            GoogleAdMob.init_google_ads(rootView, R.id.adView_sms_blocker2);
         }
 
         invoke_call_blocker(rootView);
@@ -135,7 +128,7 @@ public class CallBlocker extends Fragment{
 
             // When creating a Dialog inside a fragment, take the context of Fragment.
             AlertDialog.Builder builder = new AlertDialog.Builder(rootView.getContext());  //getActivity().getApplicationContext()  // MainActivity.this
-            builder.setIcon(R.drawable.call_recorder_app_icon);
+            builder.setIcon(R.drawable.call_recorder);
             builder.setCancelable(true);
             builder.setTitle(R.string.add_to_blacklist);
             builder.setMessage(R.string.blacklist_dialog_msg);
@@ -144,7 +137,7 @@ public class CallBlocker extends Fragment{
             editText_newFileInput = new EditText(rootView.getContext());
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(   LinearLayout.LayoutParams.MATCH_PARENT,
                                                                             LinearLayout.LayoutParams.MATCH_PARENT);
-            editText_newFileInput.setInputType(InputType.TYPE_CLASS_PHONE);     // Set the type of edit box as Phonenumber
+            editText_newFileInput.setInputType(InputType.TYPE_CLASS_TEXT);     // Set the type of edit box as Phonenumber
             editText_newFileInput.setLayoutParams(lp);
             editText_newFileInput.setText("");
             builder.setView(editText_newFileInput);
@@ -154,15 +147,15 @@ public class CallBlocker extends Fragment{
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     // Get the new filename from the text box
-                    String phNumber = editText_newFileInput.getText().toString();
+                    String smsNumber = editText_newFileInput.getText().toString();
                     String blocked_number = "yes";
 
-                    blockedCallsDB.insertRecord(phNumber, blocked_number);
+                    blockedSMSsDB.insertRecord(smsNumber, blocked_number);
 
 
                     // Update the List View with Numbers to be blocked
-                    BlockedCallsDBAdapter.add(phNumber);
-                    lv_blocked_numbers.setAdapter(BlockedCallsDBAdapter);
+                    BlockedSMSsDBAdapter.add(smsNumber);
+                    lv_blocked_numbers.setAdapter(BlockedSMSsDBAdapter);
 
 
                 }
@@ -194,7 +187,7 @@ public class CallBlocker extends Fragment{
 
     private void invoke_call_blocker(final View rootView) {
         /** Items entered by the user is stored in this ArrayList variable */
-        blockedCallsList = new ArrayList<String>();
+        blockedSMSsList = new ArrayList<String>();
 
 
         //display_alert_dialog_for_callblocker_paid_option(rootView);
@@ -222,25 +215,25 @@ public class CallBlocker extends Fragment{
 
                             case 0: // "Remove from List"
 
-                                // Get Phonenumber which is being deleted
+                                // Get SMSnumber which is being deleted
                                 String getDeletedNumber = lv_blocked_numbers.getItemAtPosition(pos).toString();
                                 // Get the ID mapped to this number , and request Sqlite DB wrapper to delete it from DB
-                                Cursor cur_blockedcalls = blockedCallsDB.retrieveRecord(getDeletedNumber);
-                                if (cur_blockedcalls != null) {
-                                    cur_blockedcalls.moveToFirst();
+                                Cursor cur_blockedsmss = blockedSMSsDB.retrieveRecord(getDeletedNumber);
+                                if (cur_blockedsmss != null) {
+                                    cur_blockedsmss.moveToFirst();
                                     do {
                                         // Get the ID of that particular record
-                                        String phnNumToBeRemovedFromDB = cur_blockedcalls.getString(1);
-                                        blockedCallsDB.deleteRecord(phnNumToBeRemovedFromDB);
+                                        String phnNumToBeRemovedFromDB = cur_blockedsmss.getString(1);
+                                        blockedSMSsDB.deleteRecord(phnNumToBeRemovedFromDB);
 
-                                    } while (cur_blockedcalls.moveToNext());
+                                    } while (cur_blockedsmss.moveToNext());
 
                                 }
 
 
                                 // Remove the number from List of Blocked Numbers
-                                blockedCallsList.remove(pos);
-                                BlockedCallsDBAdapter.notifyDataSetChanged();
+                                blockedSMSsList.remove(pos);
+                                BlockedSMSsDBAdapter.notifyDataSetChanged();
 
                                 break;
 
@@ -261,25 +254,23 @@ public class CallBlocker extends Fragment{
 
 
         // Update the List View with Numbers to be blocked
-        Cursor blocked_contacts = blockedCallsDB.retrieveAllRecords();
+        Cursor blocked_contacts = blockedSMSsDB.retrieveAllRecords();
         if(blocked_contacts != null && blocked_contacts.getCount() != 0){
 
             blocked_contacts.moveToFirst();
             do {
 
                 String blockedPhnNum = blocked_contacts.getString(1);       // Blocked phPhone Numbers is second column of table after ID
-                blockedCallsList.add(blockedPhnNum);        // Add blocked number to the list (that will be linked to adapter.
+                blockedSMSsList.add(blockedPhnNum);        // Add blocked number to the list (that will be linked to adapter.
 
             }while (blocked_contacts.moveToNext());
         }
 
         /** Defining the ArrayAdapter to set items to ListView */
-        BlockedCallsDBAdapter = new ArrayAdapter<String>(rootView.getContext(), android.R.layout.simple_list_item_1, blockedCallsList);
+        BlockedSMSsDBAdapter = new ArrayAdapter<String>(rootView.getContext(), android.R.layout.simple_list_item_1, blockedSMSsList);
 
         //ListAdapter la_blocked_phnum_from_db = new ListAdapter();
-        lv_blocked_numbers.setAdapter(BlockedCallsDBAdapter);
-
-
+        lv_blocked_numbers.setAdapter(BlockedSMSsDBAdapter);
 
     }
 

@@ -28,6 +28,7 @@ import com.unleashed.android.beeokunleashed.constants.Constants;
 import com.unleashed.android.beeokunleashed.recorder.AudioRecorder;
 import com.unleashed.android.beeokunleashed.sensors.ShakeDetector;
 import com.unleashed.android.beeokunleashed.utils.FileHandling;
+import com.unleashed.android.beeokunleashed.utils.SharedPrefs;
 import com.unleashed.android.beeokunleashed.utils.Utils;
 
 import java.util.Date;
@@ -40,11 +41,13 @@ public class MicrophoneRecorder extends Fragment {
     // Audio Recorder instance for recording voice from microphone
     private AudioRecorder audioRecorder;
 
-    private Context context;
+    //private Context context;
+    private Context mContext;
     private String completeFilePath ;
     private View converterView;
     private Thread thrProgressBarUpdate;
     private ProgressBar pb;
+
 
 
     // The following are used for the shake detection
@@ -82,6 +85,8 @@ public class MicrophoneRecorder extends Fragment {
 
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_microphone_recorder, container, false);
+
+        mContext = rootView.getContext().getApplicationContext();
 
         // Keep a reference to the root view.
         converterView = rootView;
@@ -196,7 +201,7 @@ public class MicrophoneRecorder extends Fragment {
         progressbar_start();
 
         // Get the application's context
-        context = getActivity().getApplicationContext();
+        //context = getActivity().getApplicationContext();
 
         Date current_date = new Date();
         String filepath =  Utils.populateFileName(null, Constants.MIC_RECORD_TAG, "_", current_date);
@@ -214,7 +219,7 @@ public class MicrophoneRecorder extends Fragment {
 
         audioRecorder.AudioRecorder_Start();
 
-        Toast.makeText(context, "Recording...", Toast.LENGTH_LONG).show();
+        Toast.makeText(mContext, "Recording...", Toast.LENGTH_LONG).show();
 
     }
 
@@ -244,11 +249,10 @@ public class MicrophoneRecorder extends Fragment {
         //filename_only.substring(1); // increment by one to remove the "/" before the file name.
 
         // Restore preferences
-        SharedPreferences settings = context.getSharedPreferences(Constants.PREFS_NAME, 0);
-        boolean skipfiledialog = settings.getBoolean("skipfileinfodialog", false);
+        boolean skipfiledialog = SharedPrefs.ReadFromSharedPrefFile(mContext, Constants.PREFS_NAME, "skipfileinfodialog");
 
         if(skipfiledialog) {
-            Toast.makeText(context, "File Saved...", Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, "File Saved...", Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -286,15 +290,8 @@ public class MicrophoneRecorder extends Fragment {
         builder.setNeutralButton(R.string.skip_always, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-
-                // We need an Editor object to make preference changes.
-                // All objects are from android.context.Context
-                SharedPreferences settings = context.getSharedPreferences(Constants.PREFS_NAME, 0);
-                SharedPreferences.Editor editor = settings.edit();
-                editor.putBoolean("skipfileinfodialog", true);
-
-                // Commit the edits!
-                editor.commit();
+                // Write current state to a shared pref file.
+                SharedPrefs.WriteToSharedPrefFile(mContext, Constants.PREFS_NAME, "skipfileinfodialog", true);
             }
         });
 

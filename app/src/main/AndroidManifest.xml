@@ -26,10 +26,28 @@
     <!-- Permission for Google PlayStore Payment Gateway -->
     <uses-permission android:name="com.android.vending.BILLING" />
 
+    <!-- Permission for hanging up incoming calls -->
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.MODIFY_PHONE_STATE" />
+<!--
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS" />
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+    <uses-permission android:name="android.permission.CALL_PRIVILEGED" />
+     <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS" />
+-->
+
+    <!-- Permissions needed to Analyse Incoming SMS -->
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+
+
+
     <!-- Needed to Start / Stop Recording Audio when shaking the phone. -->
     <uses-feature
         android:name="android.hardware.sensor.accelerometer"
         android:required="true" />
+
 
     <application
         android:allowBackup="true"
@@ -52,20 +70,41 @@
             android:theme="@style/AppTheme">
         </activity>
 
+        <!-- android:priority="999" tells the priority of receiver .
+                999 is highest priority. -999 is lowest priority -->
         <receiver
-            android:name=".broadcastreceivers.CallReceiver"
+            android:name=".broadcastreceivers.call.CallReceiver"
             android:enabled="true"
+            android:priority="1000"
             android:exported="true" >
+
             <intent-filter>
                 <action android:name="android.intent.action.PHONE_STATE" />
             </intent-filter>
+
             <intent-filter>
                 <action android:name="android.intent.action.NEW_OUTGOING_CALL" />
             </intent-filter>
+
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
+
         </receiver>
+
+
+        <!-- SMS Receiver -->
+        <receiver
+            android:name=".broadcastreceivers.sms.SMSReceiver"
+            android:enabled="true"
+            android:priority="1000">
+
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+
+        </receiver>
+
 
         <service
             android:name=".services.RecorderService"
@@ -132,10 +171,7 @@
             android:name="io.card.payment.CardIOActivity"
             android:configChanges="keyboardHidden|orientation" />
         <activity android:name="io.card.payment.DataEntryActivity" />
-        <activity
-            android:name=".paymentgateways.google.util.GooglePaymentGateway"
-            android:label="@string/title_activity_google_payment_gateway" >
-        </activity>
+
     </application>
 
 </manifest>

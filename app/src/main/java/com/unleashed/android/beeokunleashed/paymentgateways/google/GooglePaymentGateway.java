@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
@@ -12,10 +11,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.ImageButton;
+import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import com.unleashed.android.beeokunleashed.R;
 import com.unleashed.android.beeokunleashed.constants.Constants;
@@ -57,8 +55,8 @@ public class GooglePaymentGateway extends Activity {
         context = getApplicationContext();
         activityContext = this;         // Get current activity context
 
-        ImageButton imgbtn_Back = (ImageButton)findViewById(R.id.imgBtn_Back);
-        imgbtn_Back.setOnClickListener(new View.OnClickListener() {
+        Button btnBack = (Button)findViewById(R.id.btn_Back);
+        btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();       // Close the activity.
@@ -218,6 +216,7 @@ public class GooglePaymentGateway extends Activity {
     IabHelper.OnIabPurchaseFinishedListener mPurchaseFinishedListener = new IabHelper.OnIabPurchaseFinishedListener() {
         public void onIabPurchaseFinished(IabResult result, Purchase purchase) {
             Log.d(Constants.APP_NAME_TAG, "Purchase finished: " + result + ", purchase: " + purchase);
+
 
             // if we were disposed of in the meantime, quit.
             if (mHelper == null) return;

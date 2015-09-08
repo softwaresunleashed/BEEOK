@@ -4,7 +4,7 @@
     xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.unleashed.android.beeokunleashed.ui.fragements.CallBlocker">
+    tools:context="com.unleashed.android.beeokunleashed.ui.fragements.SMSBlocker">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -12,7 +12,7 @@
         android:background="@android:color/white">
 
         <com.google.android.gms.ads.AdView
-            android:id="@+id/adView_call_blocker"
+            android:id="@+id/adView_sms_blocker"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="false"
@@ -26,12 +26,12 @@
         <ToggleButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textOff="Call Blocker Disabled\n"
-            android:textOn="Call Blocker Enabled\n"
-            android:id="@+id/togBtn_CallBlocker"
+            android:textOff="SMS Blocker Disabled\n"
+            android:textOn="SMS Blocker Enabled\n"
+            android:id="@+id/togBtn_SMSBlocker"
             android:drawableTop="@drawable/ic_call_blocker"
             android:theme="@android:style/Widget.Button.Toggle"
-            android:layout_below="@id/adView_call_blocker"
+            android:layout_below="@id/adView_sms_blocker"
             android:layout_centerHorizontal="true"
             style="@style/ButtonTextSmall"
             android:textColor="@android:color/white"
@@ -44,7 +44,7 @@
             android:text="Add to BlackList"
             android:id="@+id/btn_add_to_blacklist"
             android:background="@drawable/rounded_corner"
-            android:layout_below="@id/togBtn_CallBlocker"/>
+            android:layout_below="@id/togBtn_SMSBlocker"/>
 
         <TextView
             android:layout_width="fill_parent"
@@ -61,7 +61,7 @@
 
 
         <com.google.android.gms.ads.AdView
-            android:id="@+id/adView_call_blocker2"
+            android:id="@+id/adView_sms_blocker2"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -74,7 +74,7 @@
         <ListView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@id/adView_call_blocker2"
+            android:layout_above="@id/adView_sms_blocker2"
             android:id="@+id/listView_blocked_numbers"
             android:background="@drawable/abc_popup_background_mtrl_mult"
             android:layout_below="@id/textView_LongPressToDeleteMsg"

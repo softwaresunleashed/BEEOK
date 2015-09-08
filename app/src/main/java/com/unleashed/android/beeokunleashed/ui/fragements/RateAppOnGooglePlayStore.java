@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,6 +61,11 @@ public class RateAppOnGooglePlayStore extends Fragment {
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction()
                     .replace(R.id.frame_container, fragment).commit();
+
+            // Set title bar as "Home"
+            ((ActionBarActivity)getActivity()).getSupportActionBar().setTitle(R.string.action_home_page);
+
+
         }
     }
 

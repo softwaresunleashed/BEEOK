@@ -1,10 +1,12 @@
 package com.unleashed.android.beeokunleashed.ui.fragements;
 
 
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,6 +86,7 @@ public class Donate extends Fragment {
                 }
             });
         }
+
 
 
     }

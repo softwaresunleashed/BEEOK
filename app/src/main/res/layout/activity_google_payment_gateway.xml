@@ -32,13 +32,15 @@
 
     </RadioGroup>
 
-    <ImageButton
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/radgrpcontainer_products"
-        android:id="@+id/imgBtn_Back"
+        android:id="@+id/btn_Back"
         android:src="@drawable/back"
-        android:background="@android:color/white"
-        android:layout_centerInParent="true" />
+        android:background="@drawable/rounded_corner"
+        android:layout_centerInParent="true"
+        android:text="     Back     "
+        style="@style/ButtonText" />
 
 </RelativeLayout>

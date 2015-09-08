@@ -104,21 +104,14 @@ public class Utils {
 //        currentFileName = currentFileName.substring(1);
 
 
-        //File directory = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES), MEDIA_NAME);
-//        File from      = new File(directory, "currentFileName");
-//        File to        = new File(directory, text.trim() + ".mp4");
-//
         File from = new File(OldFileName);
         File to = new File(NewFileName);
+
         // Check if the file exists before renaming it.
         if(from.exists()){
             from.renameTo(to);
         }
-//
-//        Log.i("Directory is", directory.toString());
-//        Log.i("Default path is", OldFileName.toString());
-//        Log.i("From path is", from.toString());
-//        Log.i("To path is", to.toString());
+
     }
 
 }

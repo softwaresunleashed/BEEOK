@@ -10,6 +10,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.provider.ContactsContract;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -57,6 +58,7 @@ public class SendPromotionalEmail extends Fragment {
         show_dialog_box_to_request_promotional_email(rootView);
 
 
+
         return rootView;
     }
 
@@ -83,6 +85,10 @@ public class SendPromotionalEmail extends Fragment {
                     FragmentManager fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction()
                             .replace(R.id.frame_container, fragment).commit();
+
+                    // Set title bar as "Home"
+                    ((ActionBarActivity)getActivity()).getSupportActionBar().setTitle(R.string.action_home_page);
+
                 }
 
 
@@ -117,6 +123,10 @@ public class SendPromotionalEmail extends Fragment {
                     FragmentManager fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction()
                             .replace(R.id.frame_container, fragment).commit();
+
+                    // Set title bar as "Home"
+                    ((ActionBarActivity)getActivity()).getSupportActionBar().setTitle(R.string.action_home_page);
+
                 }
 
                 dialogInterface.dismiss();

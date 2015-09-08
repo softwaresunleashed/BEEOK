@@ -5,6 +5,7 @@ import android.app.FragmentManager;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,6 +67,7 @@ public class HomePage extends Fragment {
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+
                 // Open the corresponding fragment.
                 displayView(position);
             }
@@ -87,18 +89,21 @@ public class HomePage extends Fragment {
                 fragment = new CallBlocker();
                 break;
             case 3:
-                fragment = new RateAppOnGooglePlayStore();
+                fragment = new SMSBlocker();
                 break;
             case 4:
-                fragment = new SendPromotionalEmail();
+                fragment = new RateAppOnGooglePlayStore();
                 break;
             case 5:
-                fragment = new TellFriendViaPersonalEmail();
+                fragment = new SendPromotionalEmail();
                 break;
             case 6:
-                fragment = new AboutApp();
+                fragment = new TellFriendViaPersonalEmail();
                 break;
             case 7:
+                fragment = new AboutApp();
+                break;
+            case 8:
                 fragment = new ExitApp();
                 break;
 
@@ -110,6 +115,8 @@ public class HomePage extends Fragment {
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction()
                     .replace(R.id.frame_container, fragment).commit();
+
+            ((ActionBarActivity)getActivity()).getSupportActionBar().setTitle(navMenuTitles[position]);
 
         } else {
             // error in creating fragment

@@ -13,6 +13,7 @@
     <string name="action_mic_record">Mic Recording</string>
     <string name="action_call_recorder">Call Recording</string>
     <string name="action_call_blocker">Call Blocker</string>
+    <string name="action_sms_blocker">SMS Blocker</string>
     <string name="action_rate_app_on_google_play_store">Rate Us</string>
     <string name="action_send_promotional_email">Promote App</string>
     <string name="action_tell_a_friend">Tell A Friend</string>
@@ -28,6 +29,7 @@
         <item > @string/action_mic_record </item>
         <item > @string/action_call_recorder </item>
         <item > @string/action_call_blocker </item>
+        <item > @string/action_sms_blocker </item>
         <item > @string/action_rate_app_on_google_play_store </item>
         <item > @string/action_send_promotional_email </item>
         <item > @string/action_tell_a_friend </item>
@@ -42,6 +44,7 @@
         <item>@drawable/ic_home</item>
         <item>@drawable/ic_microphone</item>
         <item>@drawable/ic_call_recorder</item>
+        <item>@drawable/ic_call_blocker</item>
         <item>@drawable/ic_call_blocker</item>
         <item>@drawable/ic_five_star_rating</item>
         <item>@drawable/ic_promotional_email</item>
@@ -64,6 +67,7 @@
         <item > @string/action_mic_record </item>
         <item > @string/action_call_recorder </item>
         <item > @string/action_call_blocker </item>
+        <item > @string/action_sms_blocker </item>
         <item > @string/action_rate_app_on_google_play_store </item>
         <item > @string/action_send_promotional_email </item>
         <item > @string/action_tell_a_friend </item>
@@ -76,6 +80,7 @@
     <array name="grid_icons">
         <item>@drawable/ic_microphone</item>
         <item>@drawable/ic_call_recorder</item>
+        <item>@drawable/ic_call_blocker</item>
         <item>@drawable/ic_call_blocker</item>
         <item>@drawable/ic_five_star_rating</item>
         <item>@drawable/ic_promotional_email</item>

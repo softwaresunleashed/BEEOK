@@ -1,4 +1,4 @@
-package com.unleashed.android.beeokunleashed.broadcastreceivers;
+package com.unleashed.android.beeokunleashed.broadcastreceivers.call;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -30,6 +30,7 @@ public abstract class CallStateReceiver extends BroadcastReceiver {
 
         //We listen to two intents.  The new outgoing call only tells us of an outgoing call.  We use it to get the number.
         if (intent.getAction().equals("android.intent.action.NEW_OUTGOING_CALL")) {
+
 
             savedNumber = intent.getExtras().getString("android.intent.extra.PHONE_NUMBER");
             Log.i(Constants.APP_NAME_TAG, "CallStateReceiver.java:onReceive() - Outgoing Call Number: " + savedNumber);

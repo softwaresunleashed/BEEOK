@@ -22,8 +22,5 @@ public class Constants {
     public static final String PREFS_NAME = "BeeokPrefsFile";
 
 
-    public static boolean isCallBlockerEnabled;
-
-
 
 }

@@ -6,57 +6,88 @@
     android:layout_height="match_parent"
     tools:context="com.unleashed.android.beeokunleashed.ui.fragements.CallRecorder">
 
-    <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:id="@+id/scrollView"
-        android:padding="5dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white">
+
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adView_call_recorder"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            ads:adSize="BANNER"
+            ads:adUnitId="@string/banner_ad_unit_id"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="top|center_horizontal"
+            android:layout_alignParentTop="true">
+        </com.google.android.gms.ads.AdView>
 
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
-            <com.google.android.gms.ads.AdView
-                android:id="@+id/adView_call_recorder"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="false"
-                ads:adSize="BANNER"
-                ads:adUnitId="@string/banner_ad_unit_id"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="top|center_horizontal">
-            </com.google.android.gms.ads.AdView>
+        <ToggleButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textOff="Call Rec Disabled\n"
+            android:textOn="Call Rec Enabled\n"
+            android:id="@+id/togBtn_CallRecorder"
+            android:drawableTop="@drawable/ic_call_recorder"
+            android:theme="@android:style/Widget.Button.Toggle"
+            android:layout_below="@id/adView_call_recorder"
+            android:layout_centerHorizontal="true"
+            style="@style/ButtonTextSmall"
+            android:textColor="@android:color/white"
+            android:background="@drawable/button_style_background" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/imageView6"
-                android:src="@drawable/call_recorder"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="5dp" />
+        <Button
+            style="@style/ButtonTextSmall"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Add Selective Numbers to Record"
+            android:id="@+id/btn_add_to_recordlist"
+            android:background="@drawable/button_style_background"
+            android:layout_below="@id/togBtn_CallRecorder"/>
 
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/textView_call_recorder"
-                android:textColor="@android:color/black"
-                android:background="@drawable/add_border_to_layout"
-                android:layout_gravity="center" />
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="(Long Press Phone Numbers to Delete.)\n Add Selective Numbers to Record Voice Calls"
+            android:id="@+id/textView_LongPressToDeleteMsg"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:textColor="#FFE96264"
+            style="@style/ButtonTextSmall"
+            android:layout_below="@id/btn_add_to_recordlist"
+            android:textStyle="bold" />
 
-            <com.google.android.gms.ads.AdView
-                android:id="@+id/adView_call_recorder2"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                ads:adSize="BANNER"
-                ads:adUnitId="@string/banner_ad_unit_id"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="bottom|center_horizontal"
-                android:layout_marginTop="5dp">
-            </com.google.android.gms.ads.AdView>
-        </LinearLayout>
-    </ScrollView>
+
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adView_call_recorder2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            ads:adSize="BANNER"
+            ads:adUnitId="@string/banner_ad_unit_id"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginTop="5dp"
+            android:layout_alignParentBottom="true">
+        </com.google.android.gms.ads.AdView>
+
+
+
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/adView_call_recorder2"
+            android:id="@+id/listView_record_numbers"
+            android:background="@drawable/abc_popup_background_mtrl_mult"
+            android:layout_below="@id/textView_LongPressToDeleteMsg"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp" />
+
+
+    </RelativeLayout>
+
 
 </FrameLayout>

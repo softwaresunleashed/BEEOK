@@ -157,12 +157,16 @@ public class CallBlocker extends Fragment{
                     String phNumber = editText_newFileInput.getText().toString();
                     String blocked_number = "yes";
 
-                    blockedCallsDB.insertRecord(phNumber, blocked_number);
+					// Add number only if it is not empty
+                    if(!phNumber.isEmpty()){
+                        blockedCallsDB.insertRecord(phNumber, blocked_number);
 
 
-                    // Update the List View with Numbers to be blocked
-                    BlockedCallsDBAdapter.add(phNumber);
-                    lv_blocked_numbers.setAdapter(BlockedCallsDBAdapter);
+                        // Update the List View with Numbers to be blocked
+                        BlockedCallsDBAdapter.add(phNumber);
+                        lv_blocked_numbers.setAdapter(BlockedCallsDBAdapter);
+						editText_newFileInput.setText("");
+                    }
 
 
                 }
@@ -228,9 +232,10 @@ public class CallBlocker extends Fragment{
                                 Cursor cur_blockedcalls = blockedCallsDB.retrieveRecord(getDeletedNumber);
                                 if (cur_blockedcalls != null) {
                                     cur_blockedcalls.moveToFirst();
+									// Get the ID of that particular record
+									String phnNumToBeRemovedFromDB = cur_blockedcalls.getString(1);
                                     do {
-                                        // Get the ID of that particular record
-                                        String phnNumToBeRemovedFromDB = cur_blockedcalls.getString(1);
+                                        
                                         blockedCallsDB.deleteRecord(phnNumToBeRemovedFromDB);
 
                                     } while (cur_blockedcalls.moveToNext());
@@ -239,7 +244,13 @@ public class CallBlocker extends Fragment{
 
 
                                 // Remove the number from List of Blocked Numbers
-                                blockedCallsList.remove(pos);
+								for(int i = blockedCallsList.size()-1 ; i >= 0; i--)
+                                {
+                                    if(getDeletedNumber.equals(lv_blocked_numbers.getItemAtPosition(i).toString())){
+                                        blockedCallsList.remove(i);
+                                    }
+                                }
+                                //blockedCallsList.remove(pos);
                                 BlockedCallsDBAdapter.notifyDataSetChanged();
 
                                 break;
@@ -278,7 +289,6 @@ public class CallBlocker extends Fragment{
 
         //ListAdapter la_blocked_phnum_from_db = new ListAdapter();
         lv_blocked_numbers.setAdapter(BlockedCallsDBAdapter);
-
 
 
     }

@@ -147,17 +147,18 @@ public class SMSBlocker extends Fragment{
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     // Get the new filename from the text box
-                    String smsNumber = editText_newFileInput.getText().toString();
+                    String smsOiginAddress = editText_newFileInput.getText().toString();
                     String blocked_number = "yes";
 
-                    blockedSMSsDB.insertRecord(smsNumber, blocked_number);
+                    // Add number only if it is not empty
+                    if(!smsOiginAddress.isEmpty()){
+                        blockedSMSsDB.insertRecord(smsOiginAddress, blocked_number);
 
-
-                    // Update the List View with Numbers to be blocked
-                    BlockedSMSsDBAdapter.add(smsNumber);
-                    lv_blocked_numbers.setAdapter(BlockedSMSsDBAdapter);
-
-
+                        // Update the List View with Numbers to be blocked
+                        BlockedSMSsDBAdapter.add(smsOiginAddress);
+                        lv_blocked_numbers.setAdapter(BlockedSMSsDBAdapter);
+                        editText_newFileInput.setText("");
+                    }
                 }
             });
 
@@ -221,9 +222,9 @@ public class SMSBlocker extends Fragment{
                                 Cursor cur_blockedsmss = blockedSMSsDB.retrieveRecord(getDeletedNumber);
                                 if (cur_blockedsmss != null) {
                                     cur_blockedsmss.moveToFirst();
+                                    // Get the ID of that particular record
+                                    String phnNumToBeRemovedFromDB = cur_blockedsmss.getString(1);
                                     do {
-                                        // Get the ID of that particular record
-                                        String phnNumToBeRemovedFromDB = cur_blockedsmss.getString(1);
                                         blockedSMSsDB.deleteRecord(phnNumToBeRemovedFromDB);
 
                                     } while (cur_blockedsmss.moveToNext());
@@ -232,7 +233,13 @@ public class SMSBlocker extends Fragment{
 
 
                                 // Remove the number from List of Blocked Numbers
-                                blockedSMSsList.remove(pos);
+                                for(int i = blockedSMSsList.size()-1 ; i >= 0; i--)
+                                {
+                                    if(getDeletedNumber.equals(lv_blocked_numbers.getItemAtPosition(i).toString())){
+                                        blockedSMSsList.remove(i);
+                                    }
+                                }
+                                //blockedSMSsList.remove(pos);
                                 BlockedSMSsDBAdapter.notifyDataSetChanged();
 
                                 break;

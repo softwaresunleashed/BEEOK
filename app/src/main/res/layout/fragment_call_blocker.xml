@@ -35,7 +35,7 @@
             android:layout_centerHorizontal="true"
             style="@style/ButtonTextSmall"
             android:textColor="@android:color/white"
-            android:background="@drawable/rounded_corner" />
+            android:background="@drawable/button_style_background" />
 
         <Button
             style="@style/ButtonTextSmall"
@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:text="Add to BlackList"
             android:id="@+id/btn_add_to_blacklist"
-            android:background="@drawable/rounded_corner"
+            android:background="@drawable/button_style_background"
             android:layout_below="@id/togBtn_CallBlocker"/>
 
         <TextView

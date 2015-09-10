@@ -38,7 +38,7 @@
         android:layout_below="@id/radgrpcontainer_products"
         android:id="@+id/btn_Back"
         android:src="@drawable/back"
-        android:background="@drawable/rounded_corner"
+        android:background="@drawable/rounded_corner_normal"
         android:layout_centerInParent="true"
         android:text="     Back     "
         style="@style/ButtonText" />

@@ -15,9 +15,9 @@
 
 
     <string name="app_name">BEEOK</string>
-    <string name="versionCode">8</string>
+    <string name="versionCode">10</string>
     <string name="versionName">@string/app_version</string>
-    <string name="app_version"> ( v1.9 ) 2015-09-19</string>
+    <string name="app_version"> ( v1.10 ) 2015-09-19</string>
     <string name="donate">Donate A Coffee</string>
 
     <string name="add_to_blacklist">Add Number to Blacklist...</string>
@@ -86,7 +86,7 @@
     </string>
 
 
-    <string name="email_subject">New Android App -- BEEOK v1.9 (Automatic Call &amp; Mic Recorder. Call &amp; SMS Blocker) -- Newly Launched!!!</string>
+    <string name="email_subject">New Android App -- BEEOK v1.10 (Automatic Call &amp; Mic Recorder. Call &amp; SMS Blocker) -- Newly Launched!!!</string>
     <string name="email_body">
         "Dear Friend,"
         "\n\n" "Hope this mail finds you in great health!!"

@@ -3,8 +3,10 @@ package com.unleashed.android.beeokunleashed.broadcastreceivers.call;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 
+import com.android.internal.telephony.ITelephony;
 import com.unleashed.android.beeokunleashed.constants.Constants;
 import com.unleashed.android.beeokunleashed.databases.BlockedCallsDB;
 import com.unleashed.android.beeokunleashed.databases.RecordCallsDB;
@@ -15,10 +17,6 @@ import com.unleashed.android.beeokunleashed.utils.Utils;
 
 import java.lang.reflect.Method;
 import java.util.Date;
-
-
-import com.android.internal.telephony.ITelephony;       // Imported for Telephony services (Call Hangup) ITelephony.aidl
-import android.telephony.TelephonyManager;
 
 
 /**
@@ -204,6 +202,32 @@ public class CallReceiver extends CallStateReceiver {
     @Override
     protected void onOutgoingCallStarted(Context ctx, String number, Date start) {
         Log.i(Constants.APP_NAME_TAG, "CallReceiver.java:onOutgoingCallStarted() - number: " + number);
+
+
+        // Need to Check if All Calls Recording is enabled.
+        boolean isAllCallsRecordEnabled = SharedPrefs.ReadFromSharedPrefFile(ctx, Constants.PREFS_NAME, "isAllCallsRecordEnabled");
+        if(!isAllCallsRecordEnabled){
+            /*
+            * We need to perform following filtering only when "All Call Recording Enabled" option is false
+            * */
+
+
+            // Need to pass Application Context always.
+            boolean CallRecordStatus = SharedPrefs.ReadFromSharedPrefFile(ctx, Constants.PREFS_NAME, "isRecordCallsEnabled");
+            // Check if Incoming call is from a Defined number.
+            if(!CallRecordStatus) {
+                Log.i(Constants.APP_NAME_TAG, "CallReceiver.java:onIncomingCallStarted() - Call  ");
+
+                return;
+            }
+
+            if( ! isNumberPresentInCallsRecordDB(ctx, number)){
+                // The number is not present in Record database, so no need to record this call.
+                return;
+            }
+
+        }
+
 
         String filename =  Utils.populateFileName(ctx, Constants.FILE_PATH_OUTGOING_TAG, number, start);
 

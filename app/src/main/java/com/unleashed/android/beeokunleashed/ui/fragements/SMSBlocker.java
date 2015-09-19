@@ -44,7 +44,7 @@ public class SMSBlocker extends Fragment{
     private ArrayAdapter<String> BlockedSMSsDBAdapter; /** Declaring an ArrayAdapter to set items to ListView */
     private ArrayList<String> blockedSMSsList;     /** Items entered by the user is stored in this ArrayList variable */
 
-    public static boolean isSMSBlockerEnabled;
+
     // UI Elements
     private Button btn_addToBlackList;
     private EditText editText_newFileInput;

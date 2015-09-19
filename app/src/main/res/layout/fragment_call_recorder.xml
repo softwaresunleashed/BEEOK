@@ -37,7 +37,19 @@
             android:layout_centerHorizontal="true"
             style="@style/ButtonTextSmall"
             android:textColor="@android:color/white"
-            android:background="@drawable/button_style_background" />
+            android:background="@drawable/button_style_background"
+            android:checked="false" />
+
+        <CheckBox
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/togBtn_CallRecorder"
+            android:text="Record All Calls"
+            android:id="@+id/cb_record_all_calls"
+            style="@style/ButtonTextSmall"
+            android:textColor="#FFE96264"
+            android:gravity="left|fill"
+            android:checked="false" />
 
         <Button
             style="@style/ButtonTextSmall"
@@ -46,7 +58,7 @@
             android:text="Add Selective Numbers to Record"
             android:id="@+id/btn_add_to_recordlist"
             android:background="@drawable/button_style_background"
-            android:layout_below="@id/togBtn_CallRecorder"/>
+            android:layout_below="@id/cb_record_all_calls"/>
 
         <TextView
             android:layout_width="fill_parent"

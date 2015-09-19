@@ -35,7 +35,8 @@
             android:layout_centerHorizontal="true"
             style="@style/ButtonTextSmall"
             android:textColor="@android:color/white"
-            android:background="@drawable/button_style_background" />
+            android:background="@drawable/button_style_background"
+            android:checked="false" />
 
         <Button
             style="@style/ButtonTextSmall"

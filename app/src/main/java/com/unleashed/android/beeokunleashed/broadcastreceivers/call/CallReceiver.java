@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.unleashed.android.beeokunleashed.constants.Constants;
 import com.unleashed.android.beeokunleashed.databases.BlockedCallsDB;
+import com.unleashed.android.beeokunleashed.databases.RecordCallsDB;
 import com.unleashed.android.beeokunleashed.services.RecorderService;
 import com.unleashed.android.beeokunleashed.utils.FileHandling;
 import com.unleashed.android.beeokunleashed.utils.SharedPrefs;
@@ -26,6 +27,7 @@ import android.telephony.TelephonyManager;
 public class CallReceiver extends CallStateReceiver {
 
     BlockedCallsDB blockedCallsDB;
+    RecordCallsDB recordCallsDB;
 
     Context mContext;
     Intent mRecorderServiceIntent;
@@ -45,6 +47,10 @@ public class CallReceiver extends CallStateReceiver {
 
         // Get an instance of the BlockedCallsDB here.
         blockedCallsDB = new BlockedCallsDB(mContext);
+
+        // Get an instance of the BlockedCallsDB here.
+        recordCallsDB = new RecordCallsDB(mContext);
+
 
 
         if(intent.getAction().equals("android.intent.action.PHONE_STATE")
@@ -79,7 +85,7 @@ public class CallReceiver extends CallStateReceiver {
         boolean CallBlockStatus = SharedPrefs.ReadFromSharedPrefFile(ctx, Constants.PREFS_NAME, "isCallBlockerEnabled");
 
         // Check if Incoming call is from a blocked number. If yes, Send Call hangup signal.
-        if(CallBlockStatus && isNumberPresentInBlockedCallsDB(ctx, number)) {
+        if(CallBlockStatus && isNumberPresentInCallsBlockedDB(ctx, number)) {
             Log.i(Constants.APP_NAME_TAG, "CallReceiver.java:onIncomingCallStarted() - match found. Hanging up.");
 
             killCall(ctx);
@@ -87,6 +93,33 @@ public class CallReceiver extends CallStateReceiver {
             return;
         }
 
+        // Need to Check if All Calls Recording is enabled.
+        boolean isAllCallsRecordEnabled = SharedPrefs.ReadFromSharedPrefFile(ctx, Constants.PREFS_NAME, "isAllCallsRecordEnabled");
+        if(!isAllCallsRecordEnabled){
+            /*
+            * We need to perform following filtering only when "All Call Recording Enabled" option is false
+            * */
+
+
+            // Need to pass Application Context always.
+            boolean CallRecordStatus = SharedPrefs.ReadFromSharedPrefFile(ctx, Constants.PREFS_NAME, "isRecordCallsEnabled");
+            // Check if Incoming call is from a Defined number.
+            if(!CallRecordStatus) {
+                Log.i(Constants.APP_NAME_TAG, "CallReceiver.java:onIncomingCallStarted() - Call  ");
+
+                return;
+            }
+
+            if( ! isNumberPresentInCallsRecordDB(ctx, number)){
+                // The number is not present in Record database, so no need to record this call.
+                return;
+            }
+
+        }
+
+
+
+        // Start the recording stuff here.
         String filename =  Utils.populateFileName(ctx, Constants.FILE_PATH_INCOMING_TAG, number, start);
 
 
@@ -103,29 +136,59 @@ public class CallReceiver extends CallStateReceiver {
 
     }
 
-    private boolean isNumberPresentInBlockedCallsDB(Context ctx, String number) {
-        Log.i(Constants.APP_NAME_TAG, "CallReceiver.java:isNumberPresentInBlockedCallsDB() - number: " + number);
+
+    private boolean isNumberPresentInCallsRecordDB(Context ctx, String number) {
+        Log.i(Constants.APP_NAME_TAG, "CallReceiver.java:isNumberPresentInCallsRecordDB() - number: " + number);
 
         boolean result = false;
 
-        Cursor blocked_contacts = null;
+        Cursor record_calls = null;
 
-        blocked_contacts = blockedCallsDB.retrieveAllRecords();     // Get all records from CallBlocker DB
-        if(blocked_contacts != null){
+        record_calls = recordCallsDB.retrieveAllRecords();     // Get all records from RecordCaller DB
+        if(record_calls != null && record_calls.getCount() != 0){
 
-            blocked_contacts.moveToFirst();
+            record_calls.moveToFirst();
             do {
 
-                String blockedPhnNum = blocked_contacts.getString(1);       // Blocked phPhone Numbers is second column of table after ID
+                String blockedPhnNum = record_calls.getString(1);       // Blocked phPhone Numbers is second column of table after ID
 
                 // Compare if the incoming number is among the blocked list.
-                Log.i(Constants.APP_NAME_TAG, "CallReceiver.java:isNumberPresentInBlockedCallsDB() - Comparing Number : " + number + " with BlockedNumber : " + blockedPhnNum);
+                Log.i(Constants.APP_NAME_TAG, "CallReceiver.java:isNumberPresentInCallsBlockedDB() - Comparing Number : " + number + " with Blocked Number : " + blockedPhnNum);
                 if(number.contains(blockedPhnNum)){
                     result = true;
                     break;
                 }
 
-            }while (blocked_contacts.moveToNext());
+            }while (record_calls.moveToNext());
+        }
+
+        return result;
+    }
+
+
+    private boolean isNumberPresentInCallsBlockedDB(Context ctx, String number) {
+        Log.i(Constants.APP_NAME_TAG, "CallReceiver.java:isNumberPresentInBlockedCallsDB() - number: " + number);
+
+        boolean result = false;
+
+        Cursor blocked_calls = null;
+
+        blocked_calls = blockedCallsDB.retrieveAllRecords();     // Get all records from CallBlocker DB
+        if(blocked_calls != null && blocked_calls.getCount() != 0){
+
+            blocked_calls.moveToFirst();
+            do {
+
+                String blockedPhnNum = blocked_calls.getString(1);       // Blocked phPhone Numbers is second column of table after ID
+
+                // Compare if the incoming number is among the blocked list.
+                Log.i(Constants.APP_NAME_TAG, "CallReceiver.java:isNumberPresentInCallsBlockedDB() - Comparing Number : " + number + " with Blocked Number : " + blockedPhnNum);
+                if(number.contains(blockedPhnNum)){
+                    result = true;
+                    break;
+                }
+
+            }while (blocked_calls.moveToNext());
         }
 
         return result;

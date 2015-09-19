@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -47,9 +48,11 @@ public class CallRecorder extends Fragment {
     public static boolean isRecordCallsEnabled;
     // UI Elements
     private Button btn_addToRecordList;
+    private TextView tv_longkeypress;
     private EditText editText_newFileInput;
     private ListView lv_record_numbers;
     private ToggleButton togbtn_recordcalls;
+    private CheckBox cb_record_all_calls;
 
 
 
@@ -85,29 +88,13 @@ public class CallRecorder extends Fragment {
 
         // Initialize the DB at the very beginning.
         // Always remember to pass Application Context to DB
-        initializeDB(rootView.getContext().getApplicationContext());
+        initializeDB(mContext);
 
 
-        // Toggle Button to Enable / Disable Call Blocking.
-        togbtn_recordcalls = (ToggleButton)rootView.findViewById(R.id.togBtn_CallRecorder);
-        // Set the state of the block calls toggle button as set in the shared preference file.
-        togbtn_recordcalls.setChecked(SharedPrefs.ReadFromSharedPrefFile(mContext, Constants.PREFS_NAME, "isRecordCallsEnabled"));
-        togbtn_recordcalls.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isEnabled) {
 
-                // Write current state to a shared pref file.
-                SharedPrefs.WriteToSharedPrefFile(mContext, Constants.PREFS_NAME, "isRecordCallsEnabled", isEnabled);
-            }
-        });
-// Initialize the Add to contact list button.
-        btn_addToRecordList = (Button)rootView.findViewById(R.id.btn_add_to_recordlist);
-        btn_addToRecordList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                show_dialog_add_to_recordcallslist(rootView);
-            }
-        });
+
+
+
         if (getResources().getInteger(R.integer.host_ads) == 1) {
             // Initialize the google ads via common api.
             GoogleAdMob.init_google_ads(rootView, R.id.adView_call_recorder);
@@ -183,11 +170,39 @@ public class CallRecorder extends Fragment {
 
     }
     private void invoke_call_recording(final View rootView) {
-/** Items entered by the user is stored in this ArrayList variable */
+
+        tv_longkeypress = (TextView)rootView.findViewById(R.id.textView_LongPressToDeleteMsg);
+
+        // Toggle Button to Enable / Disable Call Blocking.
+        togbtn_recordcalls = (ToggleButton)rootView.findViewById(R.id.togBtn_CallRecorder);
+        // Set the state of the block calls toggle button as set in the shared preference file.
+        togbtn_recordcalls.setChecked(SharedPrefs.ReadFromSharedPrefFile(mContext, Constants.PREFS_NAME, "isRecordCallsEnabled"));
+        togbtn_recordcalls.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isEnabled) {
+
+                // Write current state to a shared pref file.
+                SharedPrefs.WriteToSharedPrefFile(mContext, Constants.PREFS_NAME, "isRecordCallsEnabled", isEnabled);
+            }
+        });
+
+        // Initialize the Add to contact list button.
+        btn_addToRecordList = (Button)rootView.findViewById(R.id.btn_add_to_recordlist);
+        btn_addToRecordList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                show_dialog_add_to_recordcallslist(rootView);
+            }
+        });
+
+
+
+
+        /** Items entered by the user is stored in this ArrayList variable */
         recordCallsList = new ArrayList<String>();
 
 
-        //display_alert_dialog_for_callblocker_paid_option(rootView);
+
         lv_record_numbers = (ListView)rootView.findViewById(R.id.listView_record_numbers);
         lv_record_numbers.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -274,6 +289,36 @@ public class CallRecorder extends Fragment {
 
         //ListAdapter la_blocked_phnum_from_db = new ListAdapter();
         lv_record_numbers.setAdapter(RecordCallsDBAdapter);
+
+
+        // Handle checkbox for Record All Calls.
+        cb_record_all_calls = (CheckBox)rootView.findViewById(R.id.cb_record_all_calls);
+        cb_record_all_calls.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean enabled) {
+                if(enabled){
+                    // Hide Button + List
+                    btn_addToRecordList.setVisibility(View.INVISIBLE);
+                    lv_record_numbers.setVisibility(View.INVISIBLE);
+                    tv_longkeypress.setVisibility(View.INVISIBLE);
+
+                }else{
+                    // Show Button + List
+                    btn_addToRecordList.setVisibility(View.VISIBLE);
+                    lv_record_numbers.setVisibility(View.VISIBLE);
+                    tv_longkeypress.setVisibility(View.VISIBLE);
+                }
+
+                // Write current state to a shared pref file.
+                SharedPrefs.WriteToSharedPrefFile(mContext, Constants.PREFS_NAME, "isAllCallsRecordEnabled", enabled);
+            }
+        });
+        boolean isAllCallsRecordEnabled = SharedPrefs.ReadFromSharedPrefFile(mContext, Constants.PREFS_NAME, "isAllCallsRecordEnabled");
+        cb_record_all_calls.setChecked(isAllCallsRecordEnabled);       // by default record all calls.
+
+
+
+
 
     }
 

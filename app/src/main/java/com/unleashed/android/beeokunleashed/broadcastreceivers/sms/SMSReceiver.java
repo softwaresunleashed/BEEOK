@@ -67,7 +67,7 @@ public class SMSReceiver  extends SMSStateReceiver {
         Cursor blocked_contacts = null;
 
         blocked_contacts = blockedSMSsDB.retrieveAllRecords();     // Get all records from CallBlocker DB
-        if(blocked_contacts != null){
+        if(blocked_contacts != null && blocked_contacts.getCount() != 0){
 
             blocked_contacts.moveToFirst();
             do {

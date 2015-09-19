@@ -29,7 +29,7 @@
             android:textOff="SMS Blocker Disabled\n"
             android:textOn="SMS Blocker Enabled\n"
             android:id="@+id/togBtn_SMSBlocker"
-            android:drawableTop="@drawable/ic_call_blocker"
+            android:drawableTop="@drawable/ic_sms_blocker"
             android:theme="@android:style/Widget.Button.Toggle"
             android:layout_below="@id/adView_sms_blocker"
             android:layout_centerHorizontal="true"

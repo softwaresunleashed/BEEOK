@@ -17,7 +17,7 @@
     <string name="app_name">BEEOK</string>
     <string name="versionCode">8</string>
     <string name="versionName">@string/app_version</string>
-    <string name="app_version"> ( v1.8 ) 2015-09-02</string>
+    <string name="app_version"> ( v1.9 ) 2015-09-19</string>
     <string name="donate">Donate A Coffee</string>
 
     <string name="add_to_blacklist">Add Number to Blacklist...</string>
@@ -50,7 +50,7 @@
         "\n" "v1.6_2015-08-28 : Shake to Start or Stop Recording via Microphone."
         "\n" "v1.7_2015-09-01 : In-App Billing via Google Payment Gateway added."
         "\n" "v1.8_2015-09-02 : Fixed a minor bug."
-        "\n" "v1.9_2015-09-07 : Call Blocker and SMS Blocker available in FREE version. Have fun Blocking!"
+        "\n" "v1.9_2015-09-19 : Call Blocker and SMS Blocker available in FREE version. Have fun Blocking!"
     </string>
 
     <string name="call_recorder_explaination">
@@ -86,7 +86,7 @@
     </string>
 
 
-    <string name="email_subject">New Android App -- BEEOK v1.8 (Automatic Call &amp; Mic Recorder) -- Newly Launched!!!</string>
+    <string name="email_subject">New Android App -- BEEOK v1.9 (Automatic Call &amp; Mic Recorder. Call &amp; SMS Blocker) -- Newly Launched!!!</string>
     <string name="email_body">
         "Dear Friend,"
         "\n\n" "Hope this mail finds you in great health!!"

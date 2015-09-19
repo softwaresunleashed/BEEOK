@@ -45,7 +45,7 @@
         <item>@drawable/ic_microphone</item>
         <item>@drawable/ic_call_recorder</item>
         <item>@drawable/ic_call_blocker</item>
-        <item>@drawable/ic_call_blocker</item>
+        <item>@drawable/ic_sms_blocker</item>
         <item>@drawable/ic_five_star_rating</item>
         <item>@drawable/ic_promotional_email</item>
         <item>@drawable/ic_tell_friends</item>
@@ -81,7 +81,7 @@
         <item>@drawable/ic_microphone</item>
         <item>@drawable/ic_call_recorder</item>
         <item>@drawable/ic_call_blocker</item>
-        <item>@drawable/ic_call_blocker</item>
+        <item>@drawable/ic_sms_blocker</item>
         <item>@drawable/ic_five_star_rating</item>
         <item>@drawable/ic_promotional_email</item>
         <item>@drawable/ic_tell_friends</item>

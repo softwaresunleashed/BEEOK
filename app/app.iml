@@ -94,26 +94,26 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 21 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="additionnal" level="project" />
-    <orderEntry type="library" exported="" name="1_additionnal" level="project" />
     <orderEntry type="library" exported="" name="mail" level="project" />
     <orderEntry type="library" exported="" name="1_mail" level="project" />
-    <orderEntry type="library" exported="" name="support-v4-22.2.1" level="project" />
-    <orderEntry type="library" exported="" name="appszoomsdk" level="project" />
-    <orderEntry type="library" exported="" name="1_appszoomsdk" level="project" />
-    <orderEntry type="library" exported="" name="support-annotations-22.2.1" level="project" />
-    <orderEntry type="library" exported="" name="play-services-ads-7.8.0" level="project" />
-    <orderEntry type="library" exported="" name="appcompat-v7-22.2.1" level="project" />
-    <orderEntry type="library" exported="" name="play-services-analytics-7.8.0" level="project" />
-    <orderEntry type="library" exported="" name="play-services-appindexing-7.8.0" level="project" />
-    <orderEntry type="library" exported="" name="PayPalAndroidSDK-2.9.11" level="project" />
-    <orderEntry type="library" exported="" name="1_PayPalAndroidSDK-2.9.11" level="project" />
     <orderEntry type="library" exported="" name="AdBuddiz-3.0.14" level="project" />
     <orderEntry type="library" exported="" name="1_AdBuddiz-3.0.14" level="project" />
-    <orderEntry type="library" exported="" name="activation" level="project" />
-    <orderEntry type="library" exported="" name="1_activation" level="project" />
+    <orderEntry type="library" exported="" name="additionnal" level="project" />
+    <orderEntry type="library" exported="" name="1_additionnal" level="project" />
+    <orderEntry type="library" exported="" name="support-annotations-22.2.1" level="project" />
+    <orderEntry type="library" exported="" name="play-services-analytics-7.8.0" level="project" />
     <orderEntry type="library" exported="" name="VideoInterstitialSDK" level="project" />
     <orderEntry type="library" exported="" name="1_VideoInterstitialSDK" level="project" />
     <orderEntry type="library" exported="" name="play-services-base-7.8.0" level="project" />
+    <orderEntry type="library" exported="" name="appszoomsdk" level="project" />
+    <orderEntry type="library" exported="" name="1_appszoomsdk" level="project" />
+    <orderEntry type="library" exported="" name="play-services-appindexing-7.8.0" level="project" />
+    <orderEntry type="library" exported="" name="PayPalAndroidSDK-2.9.11" level="project" />
+    <orderEntry type="library" exported="" name="1_PayPalAndroidSDK-2.9.11" level="project" />
+    <orderEntry type="library" exported="" name="support-v4-22.2.1" level="project" />
+    <orderEntry type="library" exported="" name="appcompat-v7-22.2.1" level="project" />
+    <orderEntry type="library" exported="" name="play-services-ads-7.8.0" level="project" />
+    <orderEntry type="library" exported="" name="activation" level="project" />
+    <orderEntry type="library" exported="" name="1_activation" level="project" />
   </component>
 </module>
